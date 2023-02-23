@@ -1,0 +1,5 @@
+<dx-button text="Click Me" (onClick)="toggle()" type="success"></dx-button>
+<dx-text-box #textbox label="Link" labelMode="floating"></dx-text-box>
+<ng-container *ngIf="show">
+  <div id="card-text" class="card-text">Text Button value: "{{ content }}"</div>
+</ng-container>
