@@ -1,5 +1,77 @@
-<dx-button text="Click Me" (onClick)="toggle()" type="success"></dx-button>
-<dx-text-box #textbox label="Link" labelMode="floating"></dx-text-box>
-<ng-container *ngIf="show">
-  <div id="card-text" class="card-text">Text Button value: "{{ content }}"</div>
-</ng-container>
+<h2>Using Validation Engine</h2>
+<div class="container">
+  <div class="controls">
+    <dx-validation-group>
+      <dx-button
+        type="success"
+        icon="bell"
+        text="Submit"
+        (onClick)="validate($event)"
+      ></dx-button>
+      <dx-text-box
+        label="First Name"
+        labelMode="floating"
+        [showClearButton]="true"
+        [(value)]="firstName"
+        ><dx-validator>
+          <dxi-validation-rule
+            type="required"
+            message="First Name is required"
+          ></dxi-validation-rule>
+          <dxi-validation-rule
+            type="pattern"
+            pattern="^[a-zA-Z]+$"
+            message="First Name should not contain digits"
+          ></dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
+      <dx-text-box
+        label="Last Name"
+        labelMode="floating"
+        [showClearButton]="true"
+        [(value)]="lastName"
+      >
+        <dx-validator
+          ><dxi-validation-rule
+            type="custom"
+            message="Last Name is required"
+            [reevaluate]="true"
+            [validationCallback]="customCallback"
+          ></dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
+      <dx-validation-summary></dx-validation-summary>
+    </dx-validation-group>
+    <dx-check-box
+      text="Validate"
+      (value)="(isChecked)"
+      (onValueChanged)="toggleCheck($event)"
+    ></dx-check-box>
+  </div>
+</div>
+
+<h2>Using Form Component</h2>
+
+<form action="my-action" class="dxform" (submit)="handleSubmit($event)">
+  <dx-form [(formData)]="person">
+    <dxi-item itemType="button" [buttonOptions]="submitButtonOptions">
+    </dxi-item>
+    <dxi-item dataField="firstName">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-item>
+    <dxi-item dataField="lastName">
+      <dxi-validation-rule
+        type="custom"
+        message="Last Name is required"
+        [reevaluate]="true"
+        [validationCallback]="customCallback"
+      ></dxi-validation-rule>
+    </dxi-item>
+    <dxi-item itemType="empty" [colSpan]="2"></dxi-item>
+  </dx-form>
+  <dx-check-box
+    text="Validate"
+    (value)="(isChecked)"
+    (onValueChanged)="toggleCheck($event)"
+  ></dx-check-box>
+</form>

@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { DxTextBoxComponent } from 'devextreme-angular';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +6,46 @@ import { DxTextBoxComponent } from 'devextreme-angular';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  public show: boolean = false;
-  public content: string;
-  @ViewChild(DxTextBoxComponent, { static: false }) textBox: DxTextBoxComponent;
+  isChecked: boolean;
+  firstName: string;
+  lastName: string;
 
-  toggle() {
-    let value = this.textBox.value;
-    this.show = true;
-    this.content = value;
+  person = {
+    firstName: '',
+    lastName: '',
+  };
+
+  constructor() {
+    this.isChecked = false;
+    this.customCallback = this.customCallback.bind(this);
+  }
+
+  validate(params: any) {
+    let result = params.validationGroup.validate();
+    if (result.isValid) {
+      alert('Validation checked');
+      this.firstName = '';
+      this.lastName = '';
+    }
+  }
+
+  customCallback(e: any) {
+    console.log(this.isChecked);
+    return this.isChecked ? !!e.value : true;
+  }
+
+  toggleCheck(e: any) {
+    this.isChecked = !this.isChecked;
+  }
+
+  submitButtonOptions = {
+    text: 'Submit',
+    useSubmitBehavior: true,
+  };
+
+  handleSubmit(e: any) {
+    console.log(e);
+    alert('Form checked');
+    e.preventDefault();
   }
 }

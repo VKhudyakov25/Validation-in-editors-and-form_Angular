@@ -1,12 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 .dx-viewport {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100vh;
-  flex-direction: column;
+  width: auto;
 }
 
-.card-text {
-  margin-top: 10px;
+.container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  height: fit-content;
+  width: max-content;
+  align-items: flex-end;
 }
+
+.controls {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.checks {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
+  padding-left: 15px;
+}
+
+/* .dxform {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-content: flex-start;
+} */
